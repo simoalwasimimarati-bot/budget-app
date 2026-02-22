@@ -176,9 +176,9 @@ function updateSummary() {
   const income = todayTrans.filter(t => t.type === 'income').reduce((s, t) => s + t.amount, 0);
   const expense = todayTrans.filter(t => t.type === 'expense').reduce((s, t) => s + t.amount, 0);
 
-  document.getElementById('incomeToday').textContent = `DH ${income.toFixed(2)}`;
-  document.getElementById('expenseToday').textContent = `DH ${expense.toFixed(2)}`;
-  document.getElementById('balanceToday').textContent = `DH ${(income - expense).toFixed(2)}`;
+  document.getElementById('incomeToday').textContent = ` ${income.toFixed(2)}`;
+  document.getElementById('expenseToday').textContent = ` ${expense.toFixed(2)}`;
+  document.getElementById('balanceToday').textContent = ` ${(income - expense).toFixed(2)}`;
 }
 
 function renderTransactions() {
