@@ -176,10 +176,9 @@ function updateSummary() {
   const income = todayTrans.filter(t => t.type === 'income').reduce((s, t) => s + t.amount, 0);
   const expense = todayTrans.filter(t => t.type === 'expense').reduce((s, t) => s + t.amount, 0);
 
-  // تصحيح: نحذف "DH" من هنا لأنها موجودة في HTML
-  document.getElementById('incomeToday').textContent = `${income.toFixed(2)}`;
-  document.getElementById('expenseToday').textContent = `${expense.toFixed(2)}`;
-  document.getElementById('balanceToday').textContent = `${(income - expense).toFixed(2)}`;
+  document.getElementById('incomeToday').textContent = `DH ${income.toFixed(2)}`;
+  document.getElementById('expenseToday').textContent = `DH ${expense.toFixed(2)}`;
+  document.getElementById('balanceToday').textContent = `DH ${(income - expense).toFixed(2)}`;
 }
 
 function renderTransactions() {
@@ -320,10 +319,10 @@ function renderCharts() {
     
     window.expenseChart = new Chart(ctx, {
       type: 'doughnut',
-       {
+      data: {
         labels: categories,
         datasets: [{
-          data: amounts,
+           amounts,
           backgroundColor: categories.map((_, i) => colors[i % colors.length]),
           borderWidth: 0
         }]
