@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ma Gestion Pro</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="dashboard-page">
+  <header>
+    <div class="container flex-between">
+      <div class="logo">
+        <i class="fas fa-wallet"></i>
+        <h1>Ma Gestion Pro</h1>
+      </div>
+      <div class="user-dropdown">
+        <button class="btn btn-outline dropdown-toggle" id="userToggle">
+          <i class="fas fa-user"></i> <span id="userName">...</span>
+          <i class="fas fa-chevron-down ml-2"></i>
+        </button>
+        <div class="dropdown-menu hidden" id="userMenu">
+          <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> خروج</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container mt-4">
+    <!-- ملخص اليوم -->
+    <div class="summary-grid">
+      <div class="summary-card income">
+        <div class="icon"><i class="fas fa-arrow-up"></i></div>
+        <div class="info">
+          <div class="value bold">DH <span id="incomeToday">0.00</span></div>
+          <div class="label">الإيراد اليومي</div>
+        </div>
+      </div>
+      <div class="summary-card expense">
+        <div class="icon"><i class="fas fa-arrow-down"></i></div>
+        <div class="info">
+          <div class="value bold">DH <span id="expenseToday">0.00</span></div>
+          <div class="label">المصروف اليومي</div>
+        </div>
+      </div>
+      <div class="summary-card balance">
+        <div class="icon"><i class="fas fa-balance-scale"></i></div>
+        <div class="info">
+          <div class="value bold">DH <span id="balanceToday">0.00</span></div>
+          <div class="label">الرصيد المتاح</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- تحليل البيانات -->
+    <div class="card mt-4">
+      <div class="card-header flex-between">
+        <h3>تحليل الميزانية</h3>
+        <div class="export-actions">
+          <button id="exportPdfBtn" class="btn btn-outline btn-sm">
+            <i class="fas fa-file-pdf"></i> PDF
+          </button>
+          <button id="exportCsvBtn" class="btn btn-outline btn-sm ml-2">
+            <i class="fas fa-file-csv"></i> CSV
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="analysis-section">
+          <div class="pie-container">
+            <h4>توزيع المصروفات</h4>
+            <canvas id="expenseChart" width="200" height="200"></canvas>
+          </div>
+
+          <div class="trend-container">
+            <h4>الاتجاه الأسبوعي</h4>
+            <div class="trend-line">
+              <div class="day"><span>الأحد</span><span class="bar" style="height:5%;"></span></div>
+              <div class="day"><span>الإثنين</span><span class="bar" style="height:5%;"></span></div>
+              <div class="day"><span>الثلاثاء</span><span class="bar" style="height:5%;"></span></div>
+              <div class="day"><span>الأربعاء</span><span class="bar" style="height:5%;"></span></div>
+              <div class="day"><span>الخميس</span><span class="bar" style="height:5%;"></span></div>
+              <div class="day"><span>الجمعة</span><span class="bar" style="height:5%;"></span></div>
+              <div class="day"><span>السبت</span><span class="bar" style="height:5%;"></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- إضافة معاملة -->
+    <div class="card mt-4">
+      <div class="card-header">
+        <h3>إضافة معاملة</h3>
+      </div>
+      <div class="card-body">
+        <div class="grid-2">
+          <div class="input-group">
+            <label>النوع</label>
+            <select id="transType">
+              <option value="income">مدخل</option>
+              <option value="expense">مصروف</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label>التاريخ</label>
+            <input type="date" id="transDate" />
+          </div>
+        </div>
+        <div class="input-group">
+          <label>الوصف</label>
+          <input type="text" id="transDesc" placeholder="مثل: راتب، شراء..." required />
+        </div>
+        <div class="input-group">
+          <label>المبلغ (DH)</label>
+          <input type="number" id="transAmount" step="0.01" min="0.01" required />
+        </div>
+        <div class="input-group">
+          <label>الفئة</label>
+          <input type="text" id="transCategory" placeholder="مثل: طعام, نقل..." />
+        </div>
+        <button id="addTransBtn" class="btn btn-primary w-100">إضافة المعاملة</button>
+      </div>
+    </div>
+
+    <!-- قائمة المعاملات -->
+    <div class="card mt-4">
+      <div class="card-header">
+        <h3>المعاملات الأخيرة</h3>
+      </div>
+      <div class="card-body">
+        <table class="transaction-table">
+          <thead>
+            <tr>
+              <th>التاريخ</th>
+              <th>الوصف</th>
+              <th>المبلغ</th>
+              <th>النوع</th>
+              <th>إجراءات</th>
+            </tr>
+          </thead>
+          <tbody id="transList">
+            <!-- سيتم تعبئتها بالـ JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ma Gestion Pro</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="login-page">
+  <div class="lang-switcher">
+    <button class="lang-btn active" data-lang="ar">العربية</button>
+    <button class="lang-btn" data-lang="fr">Français</button>
+    <button class="lang-btn" data-lang="en">English</button>
+  </div>
+
+  <div class="login-card">
+    <div class="logo">
+      <i class="fas fa-wallet"></i>
+      <h2>Ma Gestion Pro</h2>
+      <p>إدارة مالية ذكية</p>
+    </div>
+
+    <form id="loginForm">
+      <div class="input-group">
+        <label for="email">البريد الإلكتروني</label>
+        <input type="email" id="email" placeholder="example@gmail.com" required />
+      </div>
+      <div class="input-group">
+        <label for="password">كلمة المرور</label>
+        <input type="password" id="password" placeholder="••••••••" required />
+      </div>
+      <button type="submit" class="btn btn-primary">تسجيل الدخول</button>
+      <p class="toggle-link" id="showRegisterLink">ليس لديك حساب؟ إنشاء حساب</p>
+      <p class="error-msg" id="loginError"></p>
+    </form>
+
+    <div id="registerFields" class="hidden">
+      <div class="input-group">
+        <label for="name">الاسم الكامل</label>
+        <input type="text" id="name" placeholder="محمد أحمد" required />
+      </div>
+      <div class="input-group">
+        <label for="regEmail">البريد الإلكتروني</label>
+        <input type="email" id="regEmail" placeholder="example@gmail.com" required />
+      </div>
+      <div class="input-group">
+        <label for="regPass">كلمة المرور</label>
+        <input type="password" id="regPass" placeholder="••••••••" required />
+      </div>
+      <div class="input-group">
+        <label for="currency">العملة الافتراضية</label>
+        <select id="currency">
+          <option value="MAD">درهم مغربي (DH)</option>
+          <option value="USD">دولار أمريكي ($)</option>
+          <option value="EUR">يورو (€)</option>
+        </select>
+      </div>
+      <button type="button" class="btn btn-outline" id="registerBtn">إنشاء الحساب</button>
+      <p class="toggle-link" id="showLoginLink">لديك حساب؟ عد إلى تسجيل الدخول</p>
+      <p class="error-msg" id="registerError"></p>
+    </div>
+
+    <button type="button" class="btn btn-outline guest-btn" id="guestBtn">
+      <i class="fas fa-user-circle"></i> دخول كضيف
+    </button>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous"></script>
+  <script src="script.js"></script>
+</body>
+</html>
